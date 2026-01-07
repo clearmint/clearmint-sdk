@@ -1,0 +1,23 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+      - name: Dry-run publish
+        run: |
+          echo "This is a dry run for publish. Configure your npm token and run `npm publish` manually on tag creation.`"
